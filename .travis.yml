@@ -1,0 +1,27 @@
+sudo: required
+services:
+	- docker
+
+# run test
+before_install:
+	- docker build -t lakshdipak/multi-docker-react-test -f ./client/Dockerfile.dev ./client
+script:
+	- docker run lakshdipak/multi-docker-react-test npm test -- --coverage
+    
+#build
+after_success:
+    - docker build -t lakshdipak/multi-client ./client
+    - docker build -t lakshdipak/multi-nginx ./nginx
+    - docker build -t lakshdipak/multi-server ./server
+    - docker build -t lakshdipak/multi-worker ./worker
+    
+#Log to travis CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+#push images to docker hub
+- docker push lakshdipak/multi-client
+- docker push lakshdipak/multi-nginx
+- docker push lakshdipak/multi-server
+- docker push lakshdipak/multi-worker
+	
+	
