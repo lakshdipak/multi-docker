@@ -1,0 +1,4 @@
+#Dockerzing multipe services
+
+docker build -f Dockerfile.dev .
+ 
