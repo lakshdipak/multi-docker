@@ -1,0 +1,36 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name" : "client",
+			"image" : "lakshdipak/multi-client",
+			"hostname" : "client",
+			"essential" : false
+		},
+		{
+			"name" : "server",
+			"image" : "lakshdipak/multi-server",
+			"hostname" : "app",
+			"essential" : false
+		},
+		{
+			"name" : "worker",
+			"image" : "lakshdipak/multi-worker",
+			"hostname" : "worker",
+			"essential" : false
+		},
+		{
+			"name" : "nginx",
+			"image" : "lakshdipak/multi-nginx",
+			"hostname" : "nginx",
+			"essential" : true,
+			"portMappings": [
+			{
+				"hostPort" : 80,
+				"containerPort": 80
+			}
+			],
+			"links" : ["client","server"]
+		}
+	]
+}
