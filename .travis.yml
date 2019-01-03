@@ -30,6 +30,7 @@ deploy:
  region: eu-central-1
  app: multi-docker
  env: MultiDocker-env
+ skip_cleanup: true
  bucket_name: elasticbeanstalk-eu-central-1-081777766448
  bucket_path: docker-multi
  on:
